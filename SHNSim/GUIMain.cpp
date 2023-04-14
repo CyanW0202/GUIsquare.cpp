@@ -895,7 +895,76 @@ void exitProg()
 		as well as populating those draw windows and entry boxes goes here 
 
 =============================================================================================================*/
+static void drawSquare(cario_t* cr)
+{
+//defualt data hard coded by push_back((int)#);
+//mouse location, the highlighted side..etc.
+/*The main drawing function 04.14.22*/
+	for(int i = 0; i < GUIDataContainer::count; i++){
+		cairo_line_to(cr, GUIDataContainer::coords[i][0] + GUIDataContainer::sideLength * sin(2 * M_PI / 6 * (0.5 + 5)), GUIDataContainer::coords[i][1] + GUIDataContainer::sideLength * cos(2 * M_PI / 6 * (0.5 + 5)));
 
+		for (int j = 0; j <= 5; j++)
+		{
+			cairo_line_to(cr, GUIDataContainer::coords[i][0] + GUIDataContainer::sideLength * sin(2 * M_PI / 6 * (0.5 + j)), GUIDataContainer::coords[i][1] + GUIDataContainer::sideLength * cos(2 * M_PI / 6 * (0.5 + j)));
+		}
+		cairo_fill(cr);
+	}
+	
+	for (int i = 0; i < GUIDataContainer::count; i++)	// Border
+	{
+		cairo_line_to(cr, GUIDataContainer::coords[i][0] + GUIDataContainer::sideLength * sin(2 * M_PI / 6 * (0.5 + 5)), GUIDataContainer::coords[i][1] + GUIDataContainer::sideLength * cos(2 * M_PI / 6 * (0.5 + 5)));
+		for (int k = 0; k <= 5; k++)
+		{
+			cairo_set_source_rgb(cr, 0, 0, 0);
+			cairo_set_line_width(cr, 2.0);
+			if (i == GUIDataContainer::selectedTile && k == GUIDataContainer::highlightedSide)
+			{
+				cairo_set_source_rgb(cr, 1, 0, 0);
+				cairo_set_line_width(cr, 4.0);
+			}
+			cairo_line_to(cr, GUIDataContainer::coords[i][0] + GUIDataContainer::sideLength * sin(2 * M_PI / 6 * (0.5 + k)), GUIDataContainer::coords[i][1] + GUIDataContainer::sideLength * cos(2 * M_PI / 6 * (0.5 + k)));
+			cairo_stroke(cr);
+			if (k < 5)
+			{
+				cairo_line_to(cr, GUIDataContainer::coords[i][0] + GUIDataContainer::sideLength * sin(2 * M_PI / 6 * (0.5 + k)), GUIDataContainer::coords[i][1] + GUIDataContainer::sideLength * cos(2 * M_PI / 6 * (0.5 + k)));
+			}
+		}
+	}
+	cairo_line_to(cr, GUIDataContainer::coords[GUIDataContainer::selectedTile][0] + GUIDataContainer::sideLength * sin(2 * M_PI / 6 * (0.5 + 5)), GUIDataContainer::coords[GUIDataContainer::selectedTile][1] + GUIDataContainer::sideLength * cos(2 * M_PI / 6 * (0.5 + 5)));
+	for (int k = 0; k <= 5; k++)
+	{
+		cairo_set_source_rgb(cr, 0, 0, 0);
+		cairo_set_line_width(cr, 2.0);
+		if (k == GUIDataContainer::highlightedSide)
+		{
+			cairo_set_source_rgb(cr, 1, 0, 0);
+			cairo_set_line_width(cr, 4.0);
+		}
+		cairo_line_to(cr, GUIDataContainer::coords[GUIDataContainer::selectedTile][0] + GUIDataContainer::sideLength * sin(2 * M_PI / 6 * (0.5 + k)), GUIDataContainer::coords[GUIDataContainer::selectedTile][1] + GUIDataContainer::sideLength * cos(2 * M_PI / 6 * (0.5 + k)));
+		cairo_stroke(cr);
+		if (k < 5)
+		{
+			cairo_line_to(cr, GUIDataContainer::coords[GUIDataContainer::selectedTile][0] + GUIDataContainer::sideLength * sin(2 * M_PI / 6 * (0.5 + k)), GUIDataContainer::coords[GUIDataContainer::selectedTile][1] + GUIDataContainer::sideLength * cos(2 * M_PI / 6 * (0.5 + k)));
+		}
+	}
+	for (int i = 0; i < GUIDataContainer::count; i++)	// Numbers
+	{
+		cairo_set_font_size(cr, GUIDataContainer::sideLength / 2.0);
+		
+		string result, result2, result3;
+		stringstream convert, convert2, convert3;
+		convert << i;
+		result = convert.str();
+		const char* c = result.c_str();
+
+		cairo_set_source_rgb(cr, 0, 0, 1);
+		
+		cairo_move_to(cr, GUIDataContainer::coords[i][0] - GUIDataContainer::sideLength / 2.0 / 3.0, GUIDataContainer::coords[i][1] + GUIDataContainer::sideLength / 2.0 / 2.5);
+
+		cairo_show_text(cr, c);
+	}
+	
+}
 
 static void drawHex(cairo_t * cr)
 {
