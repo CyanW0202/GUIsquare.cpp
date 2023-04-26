@@ -108,3 +108,24 @@ private:
 
 };
 
+class Microcell:BaseStation
+{
+private:
+	//The type of smallcell would be determine by the values input.
+	int cellType;
+public:
+	//all the parameter with a bound: 
+	//constructors & destructors *******************************
+	Microcell() = delete;
+	Microcell(const size_t& i, const Coord<float>& loc, const bool BS_Status, uint32_t BaseStationAttractiveness, uint32_t BaseStationPopulationDensity);
+
+	//initTransceivers initializes the antennae and transceivers, 
+	//this must be called when initializing a NEW BaseStation, which only happens in
+	//BaseStation(const size_t& i, const Coord<float>& loc, const bool failed);
+	void BaseStation::initTransceivers();
+	Microcell(const Microcell&) = default;
+	Microcell(Microcell&&) noexcept;
+	Microcell& operator=(const Microcell&) = delete;
+	~Microcell() = default;
+	//**********************************************************
+};
