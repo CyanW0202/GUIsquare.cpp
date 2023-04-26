@@ -112,7 +112,7 @@ class Microcell:BaseStation
 {
 private:
 	//The type of smallcell would be determine by the values input.{fento, pico, nano}, which{0,0,1} or {0,1,0}, or {1,0,0}
-	bool cellType[3];
+	bool cellType[3] = {0,0,0};//a normal cell default.
 public:
 	//all the parameter with a bound: 
 	//constructors & destructors *******************************
