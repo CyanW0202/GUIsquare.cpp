@@ -111,8 +111,8 @@ private:
 class Microcell:BaseStation
 {
 private:
-	//The type of smallcell would be determine by the values input.
-	int cellType;
+	//The type of smallcell would be determine by the values input.{fento, pico, nano}, which{0,0,1} or {0,1,0}, or {1,0,0}
+	bool cellType[3];
 public:
 	//all the parameter with a bound: 
 	//constructors & destructors *******************************
