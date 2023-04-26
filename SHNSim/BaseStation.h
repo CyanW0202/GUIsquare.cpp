@@ -122,7 +122,7 @@ public:
 	//initTransceivers initializes the antennae and transceivers, 
 	//this must be called when initializing a NEW BaseStation, which only happens in
 	//BaseStation(const size_t& i, const Coord<float>& loc, const bool failed);
-	void BaseStation::initTransceivers();
+	void initTransceivers();
 	Microcell(const Microcell&) = default;
 	Microcell(Microcell&&) noexcept;
 	Microcell& operator=(const Microcell&) = delete;
