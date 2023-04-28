@@ -10,6 +10,7 @@
 #endif
 
 //test edit!!
+//add the cout statement in the counsel?
 using namespace std;
 GtkWidget* alertLvlTxt, * congestionLvlTxt;
 vector<RGB> colors;
@@ -277,6 +278,7 @@ void setUpSimParamWindow()
 
 
 	// instantiate input labels, textboxes, and buttons
+	cout<<"initiate\n";
 	bsSide = gtk_label_new("BS Side Length (5 < d < 20)");
 	bsSideTxt = gtk_entry_new();
 	numAntenna = gtk_label_new("Number of Sectors (1 < n < 3)"); //changed name from antenna to sector 2021-02-26
