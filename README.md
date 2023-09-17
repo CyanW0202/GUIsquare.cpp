@@ -3,7 +3,8 @@
 A 5G Networking Simulator.
 
 ## Description
-
+This is not Official Branch, please do not upload the whole simulator, but only files that individual user has been worked on.
+-
 ### 2021
 This project uses the [GTK](https://www.gtk.org/) library for the GUI.
 The simulator models a SDNs, generate E-UTRAN Node B(Enode B) basestations includes:
