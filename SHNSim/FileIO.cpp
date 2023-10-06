@@ -11,6 +11,17 @@
 #include "UserEquipment.h"
 #include "Antenna.h"
 #include "DebugMain.h"
+//C++ connector libraries
+#include "mysql_connection.h"
+
+#include <cppconn/driver.h>
+#include <cppconn/exception.h>
+#include <cppconn/resultset.h>
+#include <cppconn/statement.h>
+#include <cppconn/prepared_statement.h>
+
+//database default credential is not initialized here. directly declared 
+//in: connect_db(). related functions are documented in header file.
 
 const uint32_t FileIO::AP_MaxLogLines = static_cast<uint32_t>(1000000);
 const std::string FileIO::defaultDRTBLName = std::string{ "DRTBL.csv" };
@@ -61,6 +72,46 @@ const std::string& FileIO::getSimName()
 	return FileIO::simulationSaveName;
 }
 
+void FileIO::connect_db()
+{
+	/*Using a major account to control the access*/
+	/*major account*/
+	string ip = "sql.cpp5gsim.com:3306";//server ip
+	string connection = "5gsimcpp";//this is the usrname
+	string pw = "5gsimcppadmin";//user pw
+
+	try{
+		sql::Driver *driver;
+		sql::Connection *con;
+		sql::Statement *stmt;
+		sql::ResultSet *res;
+		sql::PreparedStatement *pstmt;
+
+		  /* Create a connection */
+		cout << "... MySQL says it again: ";
+		driver = get_driver_instance();
+		con = driver->connect(ip, connection, pw);
+		/* Connect to the MySQL database and create the current db */
+		std::string db_name = FileIO::getSimName()
+		con->setSchema("cpp_5g_sim_fall_2023");
+		scalb create_db_comm= "CREATE TABLE "+db_name+"(id INT)";
+		stmt->execute(create_db_comm);
+
+  		delete stmt;
+		delete res;
+		delete pstmt;
+		delete con;
+
+	}catch (sql::SQLException &e) {
+		cout << "# ERR: SQLException in " << __FILE__;
+		cout << "(" << __FUNCTION__ << ") on line " »
+			<< __LINE__ << endl;
+		cout << "# ERR: " << e.what();
+		cout << " (MySQL error code: " << e.getErrorCode();
+		cout << ", SQLState: " << e.getSQLState() << " )" << endl;
+	}
+
+}
 void FileIO::setSimSaveFromFP(const std::string& fp)
 {
 	auto lastFileSlash = fp.find_last_of("/\\");
