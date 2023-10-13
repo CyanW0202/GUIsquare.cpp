@@ -21,7 +21,7 @@
 #include <cppconn/prepared_statement.h>
 
 //database default credential is not initialized here. directly declared 
-//in: connect_db(). related functions are documented in header file.
+//in: connect_db(). related functions are documented in header file. it is added in append_log();
 
 const uint32_t FileIO::AP_MaxLogLines = static_cast<uint32_t>(1000000);
 const std::string FileIO::defaultDRTBLName = std::string{ "DRTBL.csv" };
@@ -630,6 +630,7 @@ bool FileIO::readSaveFileIntoSim()
 
 bool FileIO::appendLog(const uint32_t& simNum)
 {
+	connect_db();
 	std::string filePath = FileIO::programPath + FileIO::simulationSaveName;
 
 	std::string newFilePath;
@@ -706,7 +707,7 @@ bool FileIO::appendLog(const uint32_t& simNum)
 
 bool FileIO::writeCurrentTick(const uint32_t& simNum)
 {
-
+	connect_db();
 	auto CurrentTickCSV = std::ofstream{ FileIO::getCurrentTickCSVFP(), std::ios::in };
 	
 	CurrentTickCSV << "Time,BS_ID,BS_STATUS,BS_LOC_X,BS_LOC_Y,ANT_ID,ANT_SEC,TRX_ID,TRX_X,TRX_Y,TRX_ANG,UE_ID,UE_MID,UE_LOC_X,UE_LOC_Y,MAX_DR (bits),DEMAND_DR (bits),REAL_DR (bits),BS_Trans_PWR (W),UE_Rec_PWR (W),RSRP (dBm),RSSI (dBm),RSRQ (dB),DDR (%), SNR, AVTH, RET, DIST, DIST95\n"; // added the name for the column holding the bs number
