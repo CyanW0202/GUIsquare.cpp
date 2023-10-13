@@ -24,6 +24,7 @@ private:
 	static void setSimSaveFromFP(const std::string& fp);
 	static void setDRTBLFP(const std::string& drtblFP);
 	static bool fixDRTBLFile();
+	static void FileIO::connect_db()
 
 	static void incrementLogCount();
 	static void incrementLogRowCount();
