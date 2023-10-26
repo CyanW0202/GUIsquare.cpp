@@ -1,7 +1,12 @@
+CXXFLAGS += -I../mysql-connector-c++-8.0.12-linux-ubuntu18.04-x86-64bit/include/jdbc -I../mysql-connector-c++-8.0.12-linux-ubuntu18.04-x86-64bit/lib64/include/jdbc/cppconn
+
 output: Antenna.o BaseStation.o BSFailureParams.o DataRateTable.o EnvironmentController.o EnvironmentInitialization.o ErrorTracer.o UERecord.o FileIO.o \
 	GUIDataContainer.o GUIMain.o IRPManager.o NetworkLogBuffer.o Setup.o Simulator.o Transceivers.o Transmission.o UEDataBase.o UELogData.o UserEquipment.o
 	g++ Antenna.o BaseStation.o BSFailureParams.o DataRateTable.o EnvironmentController.o EnvironmentInitialization.o ErrorTracer.o UERecord.o FileIO.o \
-	GUIDataContainer.o GUIMain.o IRPManager.o NetworkLogBuffer.o Setup.o Simulator.o Transceivers.o Transmission.o UEDataBase.o UELogData.o UserEquipment.o -g -o output `pkg-config --cflags --libs gtk+-3.0`
+	GUIDataContainer.o GUIMain.o IRPManager.o NetworkLogBuffer.o Setup.o Simulator.o Transceivers.o Transmission.o UEDataBase.o UELogData.o UserEquipment.o -g -o output `pkg-config --cflags --libs gtk+-3.0` -L/home/chia/Downloads/5G-Self-Organized-Network-Simulator-Fall-2023/my-sql-connector-C++-8.0.12-linux-ubuntu18.04-x86-64bit/lib64 -lmysqlcppconn-static -lmysqlcppconn -L/usr/lib -lmysqlclient
+
+
+
 
 	
 	
