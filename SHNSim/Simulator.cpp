@@ -498,6 +498,7 @@ bool Simulator::runSimulation()
 		std::cout << "\nCurrent  Time: " << std::string(numSize, ' ') << envClock;	//the string with the spaces aligns the numbers 
 																					//and provides padding for when it counts up to the final time
 		//the following four variables all relate to the clock being displayed to user
+		
 		auto curPwrOfTen = uint32_t{ 1 };
 		auto curNumSize = size_t{ 0 };
 		auto formatPadding = std::string(numSize - curNumSize, ' ');
@@ -509,11 +510,13 @@ bool Simulator::runSimulation()
 		{
 			if (!Simulator::environmentTick())
 				return ErrorTracer::error("\nSimulator::environmentTick() failed in Simulator::runSimulation()");
-
+				
 			//adds to log
 			if (!FileIO::appendLog(sim))
 				return ErrorTracer::error("\nFileIO::appendLog failed in Simulator::runSimulation()");
+			std::cout<<"append SUCCESS\n";
 			FileIO::writeCurrentTick(sim);
+			std::cout<<"CurrentTick SUCCESS\n";
 
 			progFrac = (double)envClock / (double)simulationLength;
 
